@@ -13,39 +13,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.vitorlengovski.animalia.model.Client;
 import br.com.vitorlengovski.animalia.model.Pet;
+import br.com.vitorlengovski.animalia.repository.ClientRepository;
 import br.com.vitorlengovski.animalia.repository.PetRepository;
 
 @RestController
 public class PetController {
 
 	@Autowired
-	private final PetRepository repository;
+	private PetRepository petRepository;
 
-	PetController(PetRepository repository) {
-		this.repository = repository;
+	@Autowired
+	private ClientRepository clientRepository;
+
+	PetController(PetRepository petRepository) {
+		this.petRepository = petRepository;
 	}
 
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, path = "/animais")
-	public void save(@RequestBody Pet pet) {
-		repository.save(pet);
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, path = "/pets")
+	public void save(@RequestBody Pet pet, @RequestBody Long clientId) {
+		Client client = clientRepository.getReferenceById(clientId);
+		pet.setClient(client);
+		petRepository.save(pet);
 	}
 
 	@ResponseBody
-	@GetMapping("/animais")
+	@GetMapping("/pets")
 	public List<Pet> listAll() {
-		return repository.findAll();
+		return petRepository.findAll();
 	}
 
 	@ResponseBody
-	@GetMapping(path = "/animais/{id}")
+	@GetMapping(path = "/pets/{id}")
 	public Optional<Pet> listById(@PathVariable Long id) {
-		return repository.findById(id);
+		return petRepository.findById(id);
 	}
 
-	@DeleteMapping(path = "delete/{id}")
+	@DeleteMapping(path = "/excluir/{id}")
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		petRepository.deleteById(id);
 	}
 
 }

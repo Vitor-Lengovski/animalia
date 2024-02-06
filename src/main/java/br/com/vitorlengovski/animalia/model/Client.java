@@ -15,15 +15,15 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String name;
-	
+
 	@Column(nullable = false)
 	private String cpf;
 	private String phoneNumber;
 	private String email;
-	
+
 	@OneToMany(mappedBy = "client")
 	private List<Pet> pets;
 
@@ -31,14 +31,14 @@ public class Client {
 
 	}
 
-	public Client(String name, String cpf, String phoneNumber, String email, List<Pet> pets) {
-		super();
-		this.name = name;
-		this.cpf = cpf;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.pets = pets;
-	}
+//	public Client(String name, String cpf, String phoneNumber, String email, List<Pet> pets) {
+//		super();
+//		this.name = name;
+//		this.cpf = cpf;
+//		this.phoneNumber = phoneNumber;
+//		this.email = email;
+//		this.pets = pets;
+//	}
 
 	public Long getId() {
 		return id;

@@ -1,7 +1,10 @@
 package br.com.vitorlengovski.animalia.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,10 +22,10 @@ public class Pet {
 	private String name;
 	private Long raceId;
 	private double weight;
-	private String type;
 	private char sex;
+	private Date birthDate;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
 
@@ -30,14 +33,14 @@ public class Pet {
 
 	}
 
-	public Pet(String name, Client client, Long raceId, double weight, String type, char sex) {
-		this.name = name;
-		this.client = client;
-		this.raceId = raceId;
-		this.weight = weight;
-		this.type = type;
-		this.sex = sex;
-	}
+//	public Pet(String name, Client client, Long raceId, double weight, char sex, Date birthDate) {
+//		this.name = name;
+//		this.client = client;
+//		this.raceId = raceId;
+//		this.weight = weight;
+//		this.sex = sex;
+//		this.birthDate = birthDate;
+//	}
 
 	public Long getId() {
 		return id;
@@ -55,20 +58,12 @@ public class Pet {
 		this.name = name;
 	}
 
-	public Client getClientId() {
-		return client;
-	}
-
-	public void setClientId(Client client) {
-		this.client = client;
+	public void setRaceId(Long raceId) {
+		this.raceId = raceId;
 	}
 
 	public Long getRaceId() {
 		return raceId;
-	}
-
-	public void setRaceId(Long raceId) {
-		this.raceId = raceId;
 	}
 
 	public double getWeight() {
@@ -79,20 +74,28 @@ public class Pet {
 		this.weight = weight;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public char getSex() {
 		return sex;
 	}
 
 	public void setSex(char sex) {
 		this.sex = sex;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }
