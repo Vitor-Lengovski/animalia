@@ -26,21 +26,20 @@ public class Pet {
 	private Date birthDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_id", nullable = false)
+	@JoinColumn(name = "client_id")
 	private Client client;
 
 	public Pet() {
 
 	}
 
-//	public Pet(String name, Client client, Long raceId, double weight, char sex, Date birthDate) {
-//		this.name = name;
-//		this.client = client;
-//		this.raceId = raceId;
-//		this.weight = weight;
-//		this.sex = sex;
-//		this.birthDate = birthDate;
-//	}
+	public Pet(String name, Long raceId, double weight, char sex, Date birthDate) {
+		this.name = name;
+		this.raceId = raceId;
+		this.weight = weight;
+		this.sex = sex;
+		this.birthDate = birthDate;
+	}
 
 	public Long getId() {
 		return id;

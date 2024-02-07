@@ -1,5 +1,6 @@
 package br.com.vitorlengovski.animalia.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -25,20 +26,19 @@ public class Client {
 	private String email;
 
 	@OneToMany(mappedBy = "client")
-	private List<Pet> pets;
+	private List<Pet> pets = new ArrayList<>();
 
 	public Client() {
 
 	}
 
-//	public Client(String name, String cpf, String phoneNumber, String email, List<Pet> pets) {
-//		super();
-//		this.name = name;
-//		this.cpf = cpf;
-//		this.phoneNumber = phoneNumber;
-//		this.email = email;
-//		this.pets = pets;
-//	}
+	public Client(String name, String cpf, String phoneNumber, String email) {
+		super();
+		this.name = name;
+		this.cpf = cpf;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;

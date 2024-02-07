@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.vitorlengovski.animalia.model.Client;
 import br.com.vitorlengovski.animalia.model.Pet;
-import br.com.vitorlengovski.animalia.repository.ClientRepository;
 import br.com.vitorlengovski.animalia.repository.PetRepository;
 
 @RestController
@@ -24,17 +22,12 @@ public class PetController {
 	@Autowired
 	private PetRepository petRepository;
 
-	@Autowired
-	private ClientRepository clientRepository;
-
 	PetController(PetRepository petRepository) {
 		this.petRepository = petRepository;
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, path = "/pets")
-	public void save(@RequestBody Pet pet, @RequestBody Long clientId) {
-		Client client = clientRepository.getReferenceById(clientId);
-		pet.setClient(client);
+	public void save(@RequestBody Pet pet) {
 		petRepository.save(pet);
 	}
 
