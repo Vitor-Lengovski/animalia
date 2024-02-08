@@ -1,8 +1,10 @@
 package br.com.vitorlengovski.animalia.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-@Entity
+@Entity(name = "clients")
 public class Client {
 
 	@Id
@@ -25,8 +27,12 @@ public class Client {
 	private String phoneNumber;
 	private String email;
 
-	@OneToMany(mappedBy = "client")
-	private List<Pet> pets = new ArrayList<>();
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Pet> pets;
+
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	private List<Order> orders;
 
 	public Client() {
 
@@ -86,6 +92,14 @@ public class Client {
 
 	public void setPets(List<Pet> pets) {
 		this.pets = pets;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }

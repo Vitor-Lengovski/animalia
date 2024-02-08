@@ -1,17 +1,24 @@
 package br.com.vitorlengovski.animalia.model;
 
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
-@Entity
+@Entity(name = "pets")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Pet {
 
 	@Id
@@ -20,22 +27,27 @@ public class Pet {
 
 	@Column(nullable = false)
 	private String name;
-	private Long raceId;
+	private String breed;
 	private double weight;
 	private char sex;
 	private Date birthDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@JsonBackReference
 	private Client client;
+
+	@OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Order> orders;
 
 	public Pet() {
 
 	}
 
-	public Pet(String name, Long raceId, double weight, char sex, Date birthDate) {
+	public Pet(String name, String breed, double weight, char sex, Date birthDate) {
 		this.name = name;
-		this.raceId = raceId;
+		this.breed = breed;
 		this.weight = weight;
 		this.sex = sex;
 		this.birthDate = birthDate;
@@ -57,12 +69,12 @@ public class Pet {
 		this.name = name;
 	}
 
-	public void setRaceId(Long raceId) {
-		this.raceId = raceId;
+	public void setBreed(String breed) {
+		this.breed = breed;
 	}
 
-	public Long getRaceId() {
-		return raceId;
+	public String getBreed() {
+		return breed;
 	}
 
 	public double getWeight() {
@@ -95,6 +107,14 @@ public class Pet {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }
