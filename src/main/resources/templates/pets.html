@@ -37,27 +37,31 @@
 						<tr>
 							<th scope="col">Código</th>
 							<th scope="col">Nome</th>
-							<th scope="col">CPF</th>
-							<th scope="col">Telefone</th>
-							<th scope="col">E-mail</th>
+							<th scope="col">Raça</th>
+							<th scope="col">Peso</th>
+							<th scope="col">Sexo</th>
+							<th scope="col">Nascimento</th>
+							<th scope="col">Cliente</th>
 							<th scope="col">Editar</th>
 							<th scope="col">Excluir</th>
 
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="c : ${clients}">
+						<tr th:each="p : ${pets}">
 
-							<td th:text="${c.id}"></td>
-							<td th:text="${c.name}"></td>
-							<td th:text="${c.cpf}"></td>
-							<td th:text="${c.phoneNumber}"></td>
-							<td th:text="${c.email}"></td>
-							<td><a th:href="@{/clients/{id}(id=${c.id})}"
+							<td th:text="${p.id}"></td>
+							<td th:text="${p.name}"></td>
+							<td th:text="${p.breed}"></td>
+							<td th:text="${p.weight}"></td>
+							<td th:text="${p.sex}"></td>
+							<td th:text="${p.birthDate}"></td>
+							<td th:text="${p.client.name}"></td>
+							<td><a th:href="@{/pets/{id}(id=${p.id})}"
 								class="btn btn-success" role="button">_</a></td>
 
 							<td>
-							<a th:href="@{/clients/excluir/{id}(id=${c.id})}"
+							<a th:href="@{/pets/excluir/{id}(id=${p.id})}"
 								class="btn btn-danger" role="button">X</a>
 							</td>
 						</tr>
@@ -66,30 +70,40 @@
 			</div>
 
 			<div class="col-4 border trim">
-				<form action="/clients" class="border trim" method="POST">
+				<form action="/pets" class="border trim" method="POST">
 
-					<div if="${client}">
-						<input type="hidden" id="id" name="id" th:value="${client?.id}">
+					<div if="${pet}">
+						<input type="hidden" id="id" name="id" th:value="${pet?.id}">
 					</div>
 					<div class="mb-3 w-50">
 						<label for="name" class="form-label">Nome</label> <input
 							type="text" class="form-control" id="name" name="name"
-							th:value="${client?.name}">
+							th:value="${pet?.name}">
 					</div>
 					<div class="mb-3 w-50">
-						<label for="cpf" class="form-label">CPF</label> <input type="text"
-							class="form-control" id="cpf" name="cpf"
-							th:value="${client?.cpf}">
+						<label for="breed" class="form-label">Raça</label> <input type="text"
+							class="form-control" id="breed" name="breed"
+							th:value="${pet?.breed}">
 					</div>
 					<div class="mb-3 w-50">
-						<label for="phoneNumber" class="form-label">Telefone</label> <input
-							type="text" class="form-control" id="phoneNumber"
-							name="phoneNumber" th:value="${client?.phoneNumber}">
+						<label for="weight" class="form-label">Peso</label> <input
+							type="text" class="form-control" id="weight"
+							name="weight" th:value="${pet?.weight}">
 					</div>
 					<div class="mb-3 w-50">
-						<label for="email" class="form-label">E-mail</label> <input
-							type="text" class="form-control" id="email" name="email"
-							th:value="${client?.email}">
+						<label for="sex" class="form-label">Sexo</label> <input
+							type="text" class="form-control" id="sex" name="sex"
+							th:value="${pet?.sex}">
+					</div>
+					<div class="mb-3 w-50">
+						<label for="birthDate" class="form-label">Nascimento</label> <input
+							type="text" class="form-control" id="birthDate" name="birthDate"
+							th:value="${pet?.birthDate}">
+					</div>
+					<div class="mb-3 w-50">
+						<label for="birthDate" class="form-label">Sexo</label> <input
+							type="text" class="form-control" id="birthDate" name="birthDate"
+							th:value="${pet?.birthDate}">
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
