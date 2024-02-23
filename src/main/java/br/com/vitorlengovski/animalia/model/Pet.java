@@ -3,6 +3,8 @@ package br.com.vitorlengovski.animalia.model;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,6 +32,7 @@ public class Pet {
 	private String breed;
 	private double weight;
 	private char sex;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
 	@ManyToOne

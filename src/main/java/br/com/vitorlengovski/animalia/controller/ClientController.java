@@ -25,20 +25,20 @@ public class ClientController {
 	@Autowired
 	private ClientRepository repository;
 
-	@GetMapping(path = "/clients")
+	@GetMapping(path = "/clientes")
 	public ModelAndView listAll() {
 		ModelAndView mv = new ModelAndView("clients");
 		mv.addObject("clients", repository.findAll());
 		return mv;
 	}
 
-	@RequestMapping(path = "/clients", method = { RequestMethod.POST, RequestMethod.PUT })
+	@RequestMapping(path = "/clientes", method = { RequestMethod.POST, RequestMethod.PUT })
 	public ModelAndView save(Client client) {
 		repository.save(client);
-		   return new ModelAndView("redirect:/clients");
+		   return new ModelAndView("redirect:/clientes");
 	}
 
-	@GetMapping("/clients/{id}")
+	@GetMapping("/clientes/{id}")
 	public ModelAndView listById(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView("clients");
 		mv.addObject("client", repository.getReferenceById(id));
@@ -46,9 +46,9 @@ public class ClientController {
 		return mv;
 	}
 
-	@GetMapping("/clients/excluir/{id}")
+	@GetMapping("/clientes/excluir/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 		repository.deleteById(id);
-		return new ModelAndView("redirect:/clients");
+		return new ModelAndView("redirect:/clientes");
 	}
 }

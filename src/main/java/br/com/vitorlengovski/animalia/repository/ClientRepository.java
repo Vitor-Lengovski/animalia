@@ -9,4 +9,5 @@ import br.com.vitorlengovski.animalia.model.Client;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
+	public Client findByCpf(String cpf);
 }
