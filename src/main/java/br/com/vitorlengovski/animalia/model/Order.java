@@ -2,6 +2,8 @@ package br.com.vitorlengovski.animalia.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.com.vitorlengovski.animalia.model.enums.Service;
@@ -24,6 +26,7 @@ public class Order {
 
 	private double price;
 	@Column(name = "date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@Enumerated(EnumType.STRING)
 	private Service service;
@@ -37,18 +40,19 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-	
+
 	public Order() {
 
 	}
 
-	public Order(double price, Date date, Service service, String observation, Pet pet) {
+	public Order(double price, Date date, Service service, String observation, Pet pet, Client client) {
 		super();
 		this.price = price;
 		this.date = date;
 		this.service = service;
 		this.observation = observation;
 		this.pet = pet;
+		this.client = client;
 	}
 
 	public Long getId() {
@@ -97,6 +101,14 @@ public class Order {
 
 	public void setPet(Pet pet) {
 		this.pet = pet;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }
