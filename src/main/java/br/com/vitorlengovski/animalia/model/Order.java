@@ -39,6 +39,7 @@ public class Order {
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@JsonBackReference
 	private Client client;
 
 	public Order() {

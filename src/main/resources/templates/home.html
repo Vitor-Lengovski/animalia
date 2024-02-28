@@ -24,9 +24,19 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="/pets">Pets</a></li>
 					<li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
-					<li class="nav-item"><a class="nav-link" href="/servicos">Serviços</a></li>
+					<div class="dropdown">
+						<a class="btn dropdown-toggle" href="#"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Serviços </a>
+
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/novoServico">Novo</a></li>
+							<li><a class="dropdown-item" href="/gerirServicos">Gerir</a></li>
+						</ul>
+					</div>					
 				</ul>
 			</div>
+		</div>
 	</nav>
 	<div class="container-lg mt-5">
 		<div class="row mx-auto align-items-center justify-content-center">

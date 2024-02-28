@@ -40,7 +40,7 @@ public class Pet {
 	@JsonBackReference
 	private Client client;
 
-	@OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pet")
 	@JsonManagedReference
 	private List<Order> orders;
 

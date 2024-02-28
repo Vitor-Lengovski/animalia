@@ -27,11 +27,12 @@ public class Client {
 	private String phoneNumber;
 	private String email;
 
-	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "client")
 	@JsonManagedReference
 	private List<Pet> pets;
 
-	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "client")
+	@JsonManagedReference
 	private List<Order> orders;
 
 	public Client() {

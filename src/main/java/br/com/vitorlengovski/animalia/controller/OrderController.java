@@ -1,5 +1,7 @@
 package br.com.vitorlengovski.animalia.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,24 +29,33 @@ public class OrderController {
 	
 	private ClientRepository clientRepository;
 
-	@GetMapping("/servicos")
-	public ModelAndView listAll() {
-		ModelAndView mv = new ModelAndView("orders");
+	@GetMapping("/novoServico")
+	public ModelAndView getData() {
+		ModelAndView mv = new ModelAndView("addOrders");
 		mv.addObject("orders", orderRepository.findAll());
 		mv.addObject("clients", clientRepository.findAll());
 		mv.addObject("pets", petRepository.findAll());
 		return mv;
 	}
+	
+	@GetMapping("/gerirServicos")
+	public List<Order> listAll() {
+		ModelAndView mv = new ModelAndView("manageOrders");
+		mv.addObject("orders", orderRepository.findAll());
+		return orderRepository.findAll();
+	}
+	
 	@PostMapping("/findClient")
 	public ModelAndView getClient(String cpf) {
-		ModelAndView mv = new ModelAndView("orders");
+		ModelAndView mv = new ModelAndView("addOrders");
 		mv.addObject("client", clientRepository.findByCpf(cpf));
 		return mv;
 		
 	}
 	@RequestMapping(path = "/servicos", method = { RequestMethod.POST, RequestMethod.PUT })
-	public void saveOrder(Order order) {
+	public ModelAndView saveOrder(Order order) {
 		orderRepository.save(order);
+		return new ModelAndView("addOrders");
 	}
 
 	@DeleteMapping("/servicos/{id}")

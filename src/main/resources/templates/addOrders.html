@@ -25,7 +25,16 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="/pets">Pets</a></li>
 					<li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
-					<li class="nav-item"><a class="nav-link" href="/servicos">Serviços</a></li>
+					<div class="dropdown">
+						<a class="btn dropdown-toggle" href="#"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Serviços </a>
+
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/novoServico">Novo</a></li>
+							<li><a class="dropdown-item" href="/gerirServicos">Gerir</a></li>
+						</ul>
+					</div>					
 				</ul>
 			</div>
 		</div>
@@ -33,7 +42,7 @@
 	<div class="container-fluid mt-5 pe-4 border" name="body">
 		<div class="row justify-content-evenly" name="mainContent">
 			<div name="searchAndClient" class="col-3 border">
-				<div name="search" class="">
+				<div name="search">
 					<form class="d-flex" role="search" action="#"
 						th:action="@{/findClient}" method="POST">
 						<input class="form-control me-2 w-75" type="search" name="cpf"
@@ -53,36 +62,37 @@
 							<div class="mb-3 w-75">
 								<label for="name" class="form-label">Nome</label> <input
 									type="text" class="form-control" id="name" name="name"
-									th:value="${client?.name}">
+									th:value="${client?.name}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="cpf" class="form-label">CPF</label> <input
 									type="text" class="form-control" id="cpf" name="cpf"
-									th:value="${client?.cpf}">
+									th:value="${client?.cpf}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="phoneNumber" class="form-label">Telefone</label> <input
 									type="text" class="form-control" id="phoneNumber"
-									name="phoneNumber" th:value="${client?.phoneNumber}">
+									name="phoneNumber" th:value="${client?.phoneNumber}"
+									disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="email" class="form-label">E-mail</label> <input
 									type="text" class="form-control" id="email" name="email"
-									th:value="${client?.email}">
+									th:value="${client?.email}" disabled="disabled">
 							</div>
 						</div>
 				</div>
 			</div>
 
 			<div name="moreOrderData" class="col-3 border">
-				<div class="mb-3 w-75">
+				<div class="mb-3 w-75" name="pet">
 					<label for="pet" class="form-label">Pet</label> <select name="pet">
 						<option value="">Selecione o Pet</option>
 						<option th:each="pet : ${client?.pets}" th:value="${pet.id}"
 							th:text="'#' + ${pet.id} + ' ' + ${pet.name}"></option>
 					</select>
 				</div>
-				<div class="mb-3 w-75">
+				<div class="mb-3 w-75" name="services">
 					<label for="service" class="form-label">Serviço</label> <select
 						name="service">
 						<option value="">Selecione o serviço</option>
@@ -101,21 +111,24 @@
 					<label for="date" class="form-label">Data do serviço</label> <input
 						type="date" class="form-control" id="date" name="date">
 				</div>
-				<div class="mb-3 w-75">
+				<div class="mb-3 w-75" name="price">
 					<label for="price" class="form-label">Preço</label> <input
 						type="number" min="0" class="form-control" id="price" name="price">
 				</div>
-				<div class="mb-3 w-75">
+				<div class="mb-3 w-75" name="observation">
 					<label for="observation" class="form-label">Observação</label> <input
 						type="text" class="form-control" id="observation"
 						name="observation">
 				</div>
 
 			</div>
-
+			<div class="d-flex justify-content-center 	border" name="button">
+				<button class="btn btn-primary">Cadastrar</button>
+			</div>
+			</form>
 		</div>
-		<button class="btn btn-primary">Escolher</button>
-		</form>
+
+
 	</div>
 
 
