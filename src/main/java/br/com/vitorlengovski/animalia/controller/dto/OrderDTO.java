@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.vitorlengovski.animalia.model.Client;
 import br.com.vitorlengovski.animalia.model.Order;
 import br.com.vitorlengovski.animalia.model.Pet;
 import br.com.vitorlengovski.animalia.model.enums.Service;
@@ -16,6 +17,7 @@ public class OrderDTO {
 	private Service service;
 	private String observation;
 	private Pet pet;
+	private Client client;
 
 	public static List<OrderDTO> converter(List<Order> orders) {
 		return orders.stream().map(OrderDTO::new).collect(Collectors.toList());
@@ -32,6 +34,7 @@ public class OrderDTO {
 		this.service = order.getService();
 		this.observation = order.getObservation();
 		this.pet = order.getPet();
+		this.client = order.getClient();
 	}
 
 	public Long getId() {
@@ -80,6 +83,14 @@ public class OrderDTO {
 
 	public void setPet(Pet pet) {
 		this.pet = pet;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }

@@ -1,9 +1,7 @@
 package br.com.vitorlengovski.animalia.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.vitorlengovski.animalia.controller.dto.OrderDTO;
 import br.com.vitorlengovski.animalia.model.Order;
 import br.com.vitorlengovski.animalia.repository.ClientRepository;
 import br.com.vitorlengovski.animalia.repository.OrderRepository;
@@ -29,7 +28,7 @@ public class OrderController {
 	
 	private ClientRepository clientRepository;
 
-	@GetMapping("/novoServico")
+	@GetMapping("/gerirServico")
 	public ModelAndView getData() {
 		ModelAndView mv = new ModelAndView("addOrders");
 		mv.addObject("orders", orderRepository.findAll());
@@ -37,12 +36,24 @@ public class OrderController {
 		mv.addObject("pets", petRepository.findAll());
 		return mv;
 	}
+
+	@GetMapping(path = "/gerirServico/{id}")
+	public ModelAndView listById(@PathVariable Long id) {
+		Order order = orderRepository.getReferenceById(id);
+		ModelAndView mv = new ModelAndView("addOrders");
+		
+		mv.addObject("order", OrderDTO.converter(order));
+		mv.addObject("clients", clientRepository.findAll());
+		mv.addObject("pets", petRepository.findAll());
+		return mv;
+	}
 	
-	@GetMapping("/gerirServicos")
-	public List<Order> listAll() {
-		ModelAndView mv = new ModelAndView("manageOrders");
+	@GetMapping("/servicos")
+	public ModelAndView listAll() {
+		ModelAndView mv = new ModelAndView("orders");
 		mv.addObject("orders", orderRepository.findAll());
-		return orderRepository.findAll();
+		return mv;
+
 	}
 	
 	@PostMapping("/findClient")
@@ -55,12 +66,13 @@ public class OrderController {
 	@RequestMapping(path = "/servicos", method = { RequestMethod.POST, RequestMethod.PUT })
 	public ModelAndView saveOrder(Order order) {
 		orderRepository.save(order);
-		return new ModelAndView("addOrders");
+		return new ModelAndView("redirect:/servicos");
 	}
 
-	@DeleteMapping("/servicos/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	@GetMapping("/servicos/excluir/{id}")
+	public ModelAndView delete(@PathVariable("id") Long id) {
 		orderRepository.deleteById(id);
+		return new ModelAndView("redirect:/servicos");
 	}
 
 }

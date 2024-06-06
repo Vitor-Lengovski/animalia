@@ -31,8 +31,8 @@
 							Serviços </a>
 
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/novoServico">Novo</a></li>
-							<li><a class="dropdown-item" href="/gerirServicos">Gerir</a></li>
+							<li><a class="dropdown-item" href="/gerirServico">Novo</a></li>
+							<li><a class="dropdown-item" href="/servicos">Gerir</a></li>
 						</ul>
 					</div>					
 				</ul>
@@ -43,7 +43,7 @@
 		<div class="row justify-content-evenly" name="mainContent">
 			<div name="searchAndClient" class="col-3 border">
 				<div name="search">
-					<form class="d-flex" role="search" action="#"
+					<form class="d-flex" role="search"
 						th:action="@{/findClient}" method="POST">
 						<input class="form-control me-2 w-75" type="search" name="cpf"
 							placeholder="CPF do Cliente" aria-label="Search">
@@ -52,33 +52,36 @@
 				</div>
 				<div name="client" id="client" class="mt-4 border">
 					<form action="/servicos" method="POST">
+						<div if="${order}">
+							<input type="hidden" id="id" name="id" th:value="${order?.id}">
+						</div>
 						<div name="client">
 							<p>Cliente</p>
-							<div th:if="${client}">
+							<div th:if="${order}">
 								<input type="hidden" id="client" name="client"
-									th:value="${client?.id}">
+									th:value="${order?.client?.id}">
 							</div>
 
 							<div class="mb-3 w-75">
 								<label for="name" class="form-label">Nome</label> <input
 									type="text" class="form-control" id="name" name="name"
-									th:value="${client?.name}" disabled="disabled">
+									th:value="${order?.client?.name}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="cpf" class="form-label">CPF</label> <input
 									type="text" class="form-control" id="cpf" name="cpf"
-									th:value="${client?.cpf}" disabled="disabled">
+									th:value="${order?.client?.cpf}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="phoneNumber" class="form-label">Telefone</label> <input
 									type="text" class="form-control" id="phoneNumber"
-									name="phoneNumber" th:value="${client?.phoneNumber}"
+									name="phoneNumber" th:value="${order?.client?.phoneNumber}"
 									disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="email" class="form-label">E-mail</label> <input
 									type="text" class="form-control" id="email" name="email"
-									th:value="${client?.email}" disabled="disabled">
+									th:value="${order?.client?.email}" disabled="disabled">
 							</div>
 						</div>
 				</div>
@@ -88,37 +91,41 @@
 				<div class="mb-3 w-75" name="pet">
 					<label for="pet" class="form-label">Pet</label> <select name="pet">
 						<option value="">Selecione o Pet</option>
-						<option th:each="pet : ${client?.pets}" th:value="${pet.id}"
-							th:text="'#' + ${pet.id} + ' ' + ${pet.name}"></option>
+						<option th:each="pet : 	${pets}" th:value="${pet.id}"
+							th:text="'#' + ${pet.id} + ' ' + ${pet.name}"
+							th:selected="${order?.pet?.id} == ${pet.id}"></option>
 					</select>
 				</div>
 				<div class="mb-3 w-75" name="services">
 					<label for="service" class="form-label">Serviço</label> <select
 						name="service">
 						<option value="">Selecione o serviço</option>
-						<option value="BANHO">Banho</option>
-						<option value="TOSA">Tosa</option>
-						<option value="VACINAÇÃO">Vacinação</option>
-						<option value="CONSULTA">Consulta</option>
-						<option value="EXAME">Exame</option>
-						<option value="TRATAMENTO">Tratamento</option>
-						<option value="CIRURGIA">Cirurgia</option>
-						<option value="CASTRAÇÃO">Castração</option>
+						<option value="BANHO" th:selected="${#strings.equals(order?.service, 'BANHO')}">Banho</option>
+						<option value="TOSA" th:selected="${#strings.equals(order?.service, 'TOSA')}">Tosa</option>
+						<option value="VACINAÇÃO" th:selected="${#strings.equals(order?.service, 'VACINAÇÃO')}">Vacinação</option>
+						<option value="CONSULTA" th:selected="${#strings.equals(order?.service, 'CONSULTA')}">Consulta</option>
+						<option value="EXAME" th:selected="${#strings.equals(order?.service, 'EXAME')}">Exame</option>
+						<option value="TRATAMENTO" th:selected="${#strings.equals(order?.service, 'TRATAMENTO')}">Tratamento</option>
+						<option value="CIRURGIA" th:selected="${#strings.equals(order?.service, 'CIRURGIA')}">Cirurgia</option>
+						<option value="CASTRAÇÃO"th:selected="(${#strings.equals(order?.service, 'CASTRAÇÃO')})">Castração</option>
 					</select>
 				</div>
 
 				<div class="mb-3 w-75" name="date">
 					<label for="date" class="form-label">Data do serviço</label> <input
-						type="date" class="form-control" id="date" name="date">
+						type="date" class="form-control" id="date" name="date"
+						th:value="${#dates.format(order?.date, 'yyyy-MM-dd')}">
 				</div>
 				<div class="mb-3 w-75" name="price">
 					<label for="price" class="form-label">Preço</label> <input
-						type="number" min="0" class="form-control" id="price" name="price">
+						type="number" min="0" class="form-control" id="price" name="price"
+						th:value="${order?.price}">
 				</div>
 				<div class="mb-3 w-75" name="observation">
 					<label for="observation" class="form-label">Observação</label> <input
 						type="text" class="form-control" id="observation"
-						name="observation">
+						name="observation"
+						th:value="${order?.observation}">
 				</div>
 
 			</div>
