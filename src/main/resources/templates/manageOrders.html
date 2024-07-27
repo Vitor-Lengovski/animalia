@@ -62,8 +62,8 @@
 
 							<td th:text="${o.id}"></td>
 							<td th:text="${#dates.format(o.date, 'dd/MM/yyyy')}"></td>
-							<td th:text="${o.client}"></td>
-							<td th:text="${o.pet}"></td>
+							<td th:text="${o.client.name}"></td>
+							<td th:text="${o.pet.name}"></td>
 							<td th:text="${o.service}"></td>
 							<td th:text="${o.price}"></td>
 							<td th:text="${o.observation}"></td>

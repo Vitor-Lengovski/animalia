@@ -44,12 +44,13 @@
 			<div name="searchAndClient" class="col-3 border">
 				<div name="search">
 					<form class="d-flex" role="search"
-						th:action="@{/findClient}" method="POST">
+						th:action="@{/gerirServico}" method="POST">
 						<input class="form-control me-2 w-75" type="search" name="cpf"
 							placeholder="CPF do Cliente" aria-label="Search">
 						<button class="btn btn-outline-success" type="submit">Buscar</button>
 					</form>
 				</div>
+				
 				<div name="client" id="client" class="mt-4 border">
 					<form action="/servicos" method="POST">
 						<div if="${order}">
@@ -59,29 +60,29 @@
 							<p>Cliente</p>
 							<div th:if="${order}">
 								<input type="hidden" id="client" name="client"
-									th:value="${order?.client?.id}">
+									th:value="${client?.id}">
 							</div>
 
 							<div class="mb-3 w-75">
 								<label for="name" class="form-label">Nome</label> <input
 									type="text" class="form-control" id="name" name="name"
-									th:value="${order?.client?.name}" disabled="disabled">
+									th:value="${client?.name}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="cpf" class="form-label">CPF</label> <input
 									type="text" class="form-control" id="cpf" name="cpf"
-									th:value="${order?.client?.cpf}" disabled="disabled">
+									th:value="${client?.cpf}" disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="phoneNumber" class="form-label">Telefone</label> <input
 									type="text" class="form-control" id="phoneNumber"
-									name="phoneNumber" th:value="${order?.client?.phoneNumber}"
+									name="phoneNumber" th:value="${client?.phoneNumber}"
 									disabled="disabled">
 							</div>
 							<div class="mb-3 w-75">
 								<label for="email" class="form-label">E-mail</label> <input
 									type="text" class="form-control" id="email" name="email"
-									th:value="${order?.client?.email}" disabled="disabled">
+									th:value="${client?.email}" disabled="disabled">
 							</div>
 						</div>
 				</div>
@@ -93,7 +94,7 @@
 						<option value="">Selecione o Pet</option>
 						<option th:each="pet : 	${pets}" th:value="${pet.id}"
 							th:text="'#' + ${pet.id} + ' ' + ${pet.name}"
-							th:selected="${order?.pet?.id} == ${pet.id}"></option>
+							th:selected="${pet?.id} == ${pet.id}"></option>
 					</select>
 				</div>
 				<div class="mb-3 w-75" name="services">
